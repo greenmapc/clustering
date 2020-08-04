@@ -68,7 +68,7 @@ def mapping_data(page_data):
 # Цвет автомобиля (возвращается в формате hex)
 def get_color(page_data):
     try:
-        return str(page_data[page_data]['color_hex'])
+        return str(page_data['color_hex'])
     except:
         return None
 
@@ -129,10 +129,15 @@ def get_class_auto(page_data):
         return None
 
 
-# Название автомобиля
+# Тип кузова автомобиля
 def get_body_type(page_data):
     try:
-        return str(page_data['vehicle_info']['configuration']['human_name'])
+        type = str(page_data['vehicle_info']['configuration']['human_name'])
+        start = type.find('дв.')
+        if start > 0:
+            return type[:start + 3]
+        else:
+            return type.split()[0]
     except:
         return None
 
