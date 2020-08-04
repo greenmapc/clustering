@@ -2,11 +2,8 @@ import os
 from csv import DictWriter
 
 COLUMNS = ['brand', 'model', 'year', 'color', 'price', 'owners_count', 'region',
-           'mileage', 'doors_count', 'class_auto', 'name_auto', 'trunk_volume']
+           'mileage', 'doors_count', 'class_auto', 'body_type']
 
-
-# df = pd.DataFrame(, columns = COLUMNS)
-# df.to_csv(r'/path/to/cartridge_accounting.csv')
 
 def write_to_csv(data):
     with open("data.csv", "w", newline='') as out_file:

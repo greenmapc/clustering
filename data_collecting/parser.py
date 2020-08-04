@@ -4,8 +4,9 @@ from csv_generator import write_to_csv
 
 PAGE_SIZE = 99
 CATEGORY = "cars"
-URL = 'https://auto.ru/-/ajax/desktop/listing/'  # URL на который будет отправлен запрос
+URL = 'https://auto.ru/-/ajax/desktop/listing/'
 
+# TODO: update headers
 HEADERS = {
     'Accept': '*/*',
     'Accept-Encoding': 'gzip, deflate, br',
@@ -43,9 +44,9 @@ def parse():
 
         for i in range(len(data)):
             result.append(mapping_data(data[i]))
-        print('Page: ' + str(page))  # Выводим сообщение, какая страница записалась
+        print('Page: ' + str(page))
     write_to_csv(result)
-    print('Successfully')  # Выводим информацию об успешном выполнении
+    print('Successfully')
 
 
 def mapping_data(page_data):
@@ -58,8 +59,7 @@ def mapping_data(page_data):
         'mileage': get_mileage(page_data),
         'doors_count': get_doors_count(page_data),
         'class_auto': get_class_auto(page_data),
-        'name_auto': get_name_auto(page_data),
-        'trunk_volume': get_trunk_volume(page_data),
+        'body_type': get_body_type(page_data),
         'brand': get_brand(page_data),
         'model': get_model(page_data),
     }
@@ -130,17 +130,9 @@ def get_class_auto(page_data):
 
 
 # Название автомобиля
-def get_name_auto(page_data):
+def get_body_type(page_data):
     try:
         return str(page_data['vehicle_info']['configuration']['human_name'])
-    except:
-        return None
-
-
-# Объем багажника автомобиля
-def get_trunk_volume(page_data):
-    try:
-        return str(page_data['vehicle_info']['configuration']['trunk_volume_min'])
     except:
         return None
 
