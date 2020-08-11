@@ -21,11 +21,12 @@ def body_type_transform(data_file):
     return pd.DataFrame(new_ohe_features, columns=['body_type' + str(i) for i in range(new_ohe_features.shape[1])])
 
 
-def write_transform_data_to_csv(data):
-    data.to_csv('transformed_data.csv')
+def write_transform_data_to_csv(new_data):
+    new_data.to_csv('transformed_data.csv')
 
 
 data_file = pd.read_csv('data.csv', encoding='cp1252', sep=',')
 data = pd.concat([data_file, brand_transform(data_file), model_transform(data_file), body_type_transform(data_file)],
                  axis=1)
 data = data.drop(['brand', 'model', 'body_type', 'color', 'region'], axis=1)
+write_transform_data_to_csv(data)
