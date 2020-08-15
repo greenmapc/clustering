@@ -1,7 +1,7 @@
 import os
 from csv import DictWriter
 
-COLUMNS = ['brand', 'model', 'year', 'color', 'price', 'owners_count', 'region',
+COLUMNS = ['brand', 'model', 'year', 'price', 'owners_count',
            'mileage', 'doors_count', 'class_auto', 'body_type']
 
 

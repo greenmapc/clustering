@@ -55,7 +55,10 @@ def parse():
         data = response.json()['offers']
 
         for i in range(len(data)):
-            result.append(mapping_data(data[i]))
+            try:
+                result.append(mapping_data(data[i]))
+            except:
+                pass
         print('Page: ' + str(page))
     write_to_csv(result)
     print('Successfully')
@@ -63,11 +66,9 @@ def parse():
 
 def mapping_data(page_data):
     return {
-        'color': get_color(page_data),
         'owners_count': get_owners_count(page_data),
         'year': get_year(page_data),
         'price': get_price(page_data),
-        'region': get_region(page_data),
         'mileage': get_mileage(page_data),
         'doors_count': get_doors_count(page_data),
         'class_auto': get_class_auto(page_data),
@@ -77,97 +78,54 @@ def mapping_data(page_data):
     }
 
 
-# Цвет автомобиля (возвращается в формате hex)
-def get_color(page_data):
-    try:
-        return str(page_data['color_hex'])
-    except:
-        return None
-
-
 # Колличество владельцев автомобиля
 def get_owners_count(page_data):
-    try:
-        return str(page_data['documents']['owners_number'])
-    except:
-        return None
+    return str(page_data['documents']['owners_number'])
 
 
 # Год выпуска автомобиля
 def get_year(page_data):
-    try:
-        return str(page_data['documents']['year'])
-    except:
-        return None
+    return str(page_data['documents']['year'])
 
 
 # Цена в рублях, евро и долларах
 def get_price(page_data):
-    try:
-        return str(page_data['price_info']['RUR'])
-    except:
-        return None
-
-
-# Регион, в котором находится автомобиль
-def get_region(page_data):
-    try:
-        return str(page_data['seller']['location']['region_info']['name'])
-    except:
-        return None
+    return str(page_data['price_info']['RUR'])
 
 
 # Пробег автомобиля
 def get_mileage(page_data):
-    try:
-        return str(page_data['state']['mileage'])
-    except:
-        return None
+    return str(page_data['state']['mileage'])
 
 
 # Количество дверей у автомобиля
 def get_doors_count(page_data):
-    try:
-        return str(page_data['vehicle_info']['configuration']['doors_count'])
-    except:
-        return None
+    return str(page_data['vehicle_info']['configuration']['doors_count'])
 
 
 # Класс автомобиля
 def get_class_auto(page_data):
-    try:
-        return str(CLASS_AUTO_DICT[str(page_data['vehicle_info']['configuration']['auto_class'])])
-    except:
-        return None
+    return str(CLASS_AUTO_DICT[str(page_data['vehicle_info']['configuration']['auto_class'])])
 
 
 # Тип кузова автомобиля
 def get_body_type(page_data):
-    try:
-        type = str(page_data['vehicle_info']['configuration']['human_name'])
-        start = type.find('дв.')
-        if start > 0:
-            return type[:start + 3]
-        else:
-            return type.split()[0]
-    except:
-        return None
+    type = str(page_data['vehicle_info']['configuration']['human_name'])
+    start = type.find('дв.')
+    if start > 0:
+        return type[:start + 3]
+    else:
+        return type.split()[0]
 
 
 # Марка автомобиля
 def get_brand(page_data):
-    try:
-        return str(page_data['vehicle_info']['mark_info']['name'])
-    except:
-        return None
+    return str(page_data['vehicle_info']['mark_info']['name'])
 
 
 # Модель автомобиля
 def get_model(page_data):
-    try:
-        return str(page_data['vehicle_info']['model_info']['name'])
-    except:
-        return None
+    return str(page_data['vehicle_info']['model_info']['name'])
 
 
 parse()
