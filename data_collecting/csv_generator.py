@@ -12,3 +12,7 @@ def write_to_csv(data):
         writer.writeheader()
         for data_page in data:
             writer.writerow(data_page)
+
+
+def write_pd_to_csv(new_data, name):
+    new_data.to_csv(name)

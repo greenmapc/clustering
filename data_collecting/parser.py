@@ -26,6 +26,18 @@ HEADERS = {
     'x-requested-with': 'fetch'
 }
 
+CLASS_AUTO_DICT = {
+    'A': 1,
+    'B': 2,
+    'C': 3,
+    'D': 4,
+    'E': 5,
+    'F': 6,
+    'J': 7,
+    'M': 8,
+    'S': 9
+}
+
 
 def parse():
     result = []
@@ -124,7 +136,7 @@ def get_doors_count(page_data):
 # Класс автомобиля
 def get_class_auto(page_data):
     try:
-        return str(page_data['vehicle_info']['configuration']['auto_class'])
+        return str(CLASS_AUTO_DICT[str(page_data['vehicle_info']['configuration']['auto_class'])])
     except:
         return None
 
