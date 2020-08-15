@@ -8,8 +8,7 @@ import csv_generator
 
 def standardization_data(data):
     X = data.values[:, 1:]
-    X = np.nan_to_num(X)
-    return StandardScaler().fit_transform(X)
+    return np.nan_to_num(X)
 
 
 def k_mean_clustering(data):
