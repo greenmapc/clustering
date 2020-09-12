@@ -12,7 +12,7 @@ def standardization_data(data):
 
 
 def k_mean_clustering(data):
-    clasterNum = 5
+    clasterNum = 3
     k_means = KMeans(init="k-means++", n_clusters=clasterNum, n_init=12)
     stnd_data = standardization_data(data)
     k_means.fit(stnd_data)
@@ -23,6 +23,8 @@ data_file = pd.read_csv('../transformed_data.csv', encoding='cp1251', sep=',')
 data_file.head()
 labels = k_mean_clustering(data_file)
 
+show_plot(data_file, 'price', 'year', labels)
+show_plot(data_file, 'price', 'owners_count', labels)
 show_plot(data_file, 'price', 'mileage', labels)
 simple_data = pd.read_csv('../data.csv', encoding='cp1251', sep=',')
 data = pd.concat([simple_data, pd.DataFrame(labels, columns=['cluster'])], axis=1)

@@ -4,6 +4,7 @@ import scipy.cluster.hierarchy as shc
 from sklearn.cluster import AgglomerativeClustering
 
 import csv_generator
+from clustering.plot_util import show_plot
 
 data = pd.read_csv('../transformed_data.csv', encoding='cp1251', sep=',')
 data_scaled = data
@@ -27,4 +28,10 @@ show_dendrogram(data_scaled)
 cluster = AgglomerativeClustering(n_clusters=2, affinity='euclidean', linkage='ward')
 cluster.fit_predict(data_scaled)
 
-# show_plot(data_scaled, 'price', 'mileage', cluster.labels_)
+clustering_result_to_csv(cluster.labels_)
+
+labels = cluster.labels_
+
+show_plot(data_scaled, 'price', 'year', labels)
+show_plot(data_scaled, 'price', 'owners_count', labels)
+show_plot(data_scaled, 'price', 'mileage', labels)
